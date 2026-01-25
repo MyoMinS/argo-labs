@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: podinfo-app-dev
+  labels:
+    app: podinfo-app
+    env: dev
+  annotations:
+    # Set the image tag that you want to update.
+    # (e.g., develop, latest)
+    argocd-image-updater.argoproj.io/image-list: myapp=myominsoe432/gitopsk3s:latest
+    # Set the image update strategy for alias "myapp."
+    argocd-image-updater.argoproj.io/myapp.update-strategy: digest
+    # Set the image tag Helm parameter that's defined in your Helm chart values file.
+    argocd-image-updater.argoproj.io/myapp.helm.image-tag: image.tag
+    # Set the write-back method. It can be 'argocd' or 'git'.
+    argocd-image-updater.argoproj.io/write-back-method: argocd
+spec:
+  destination:
+    namespace: dev
+    server: {{ .Values.spec.destination.server }}
+  source:
+    path: helm/podinfo-app
+    repoURL: {{ .Values.spec.source.repoURL }}
+    targetRevision: {{ .Values.spec.source.targetRevision }}
+  project: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
