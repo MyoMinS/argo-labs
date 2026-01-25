@@ -10,7 +10,7 @@ metadata:
     # (e.g., develop, latest)
     argocd-image-updater.argoproj.io/image-list: myapp=myominsoe432/gitopsk3s:latest
     # Set the image update strategy for alias "myapp."
-    argocd-image-updater.argoproj.io/myapp.update-strategy: digest
+    argocd-image-updater.argoproj.io/myapp.update-strategy: latest
     # Set the image tag Helm parameter that's defined in your Helm chart values file.
     argocd-image-updater.argoproj.io/myapp.helm.image-tag: image.tag
     # Set the write-back method. It can be 'argocd' or 'git'.
