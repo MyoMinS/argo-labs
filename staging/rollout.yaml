@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-      - image: schoolofdevops/vote:v2
+      - image: myominsoe432/vote:f027c48
         name: vote
         imagePullPolicy: Always
         resources:
